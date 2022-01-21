@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <project.scm.id>github</project.scm.id>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
@@ -23,16 +24,110 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.14.2</version>
+            <version>1.14.3</version>
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>8</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <scm>
+        <developerConnection>scm:git:https://github.com/hurelhuyag/java-bean-validation-extra</developerConnection>
+    </scm>
+
+    <profiles>
+        <profile>
             <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/hurelhuyag/java-bean-validation-extra</url>
-        </repository>
-    </distributionManagement>
+            <distributionManagement>
+                <repository>
+                    <id>github</id>
+                    <name>GitHub Packages</name>
+                    <url>https://maven.pkg.github.com/hurelhuyag/java-bean-validation-extra</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+        <profile>
+            <id>ossrh</id>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>${gpg.keyname}</keyname>
+                                    <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.8</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
