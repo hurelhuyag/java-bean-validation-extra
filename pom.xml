@@ -4,9 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <name>Java Validation Extra validators</name>
+    <description>extra java bean validators</description>
+    <url>https://github.com/hurelhuyag/java-bean-validation-extra</url>
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Hurelhuyag</name>
+            <email>hurelhuyag@gmail.com</email>
+            <url>https://github.com/hurelhuyag</url>
+        </developer>
+    </developers>
+
     <groupId>io.github.hurelhuyag</groupId>
     <artifactId>validation-extra</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <project.scm.id>github</project.scm.id>
@@ -68,6 +85,7 @@
     </build>
 
     <scm>
+        <url>https://github.com/hurelhuyag/java-bean-validation-extra</url>
         <developerConnection>scm:git:https://github.com/hurelhuyag/java-bean-validation-extra</developerConnection>
     </scm>
 
